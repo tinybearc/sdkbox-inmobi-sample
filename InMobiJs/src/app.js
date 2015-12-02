@@ -37,39 +37,69 @@ var HelloWorldLayer = cc.Layer.extend({
                 return
             }
 
-            if ("undefined" != typeof(sdkbox.PluginAppodeal)) {
-                var plugin = sdkbox.PluginAppodeal
+            if ("undefined" != typeof(sdkbox.PluginInMobi)) {
+                var plugin = sdkbox.PluginInMobi
                 plugin.setListener({
-                    onBannerDidLoadAd: function() { cc.log("onBannerDidLoadAd") },
-                    onBannerDidFailToLoadAd: function() { cc.log("onBannerDidFailToLoadAd") },
-                    onBannerDidClick: function() { cc.log("onBannerDidClick") },
-                    onBannerPresent: function() { cc.log("onBannerPresent") },
-                    onInterstitialDidLoadAd: function() { cc.log("onInterstitialDidLoadAd") },
-                    onInterstitialDidFailToLoadAd: function() { cc.log("onInterstitialDidFailToLoadAd") },
-                    onInterstitialWillPresent: function() { cc.log("onInterstitialWillPresent") },
-                    onInterstitialDidDismiss: function() { cc.log("onInterstitialDidDismiss") },
-                    onInterstitialDidClick: function() { cc.log("onInterstitialDidClick") },
-                    onVideoDidLoadAd: function() { cc.log("onVideoDidLoadAd") },
-                    onVideoDidFailToLoadAd: function() { cc.log("onVideoDidFailToLoadAd") },
-                    onVideoDidPresent: function() { cc.log("onVideoDidPresent") },
-                    onVideoWillDismiss: function() { cc.log("onVideoWillDismiss") },
-                    onVideoDidFinish: function() { cc.log("onVideoDidFinish") }
+                    bannerDidFinishLoading: function() { cc.log('bannerDidFinishLoading'); },
+                    bannerDidFailToLoadWithError: function(code, description) { cc.log('bannerDidFailToLoadWithError'); },
+                    bannerDidInteractWithParams: function(params) { cc.log('bannerDidInteractWithParams'); },
+                    userWillLeaveApplicationFromBanner: function() { cc.log('userWillLeaveApplicationFromBanner'); },
+                    bannerWillPresentScreen: function() { cc.log('bannerWillPresentScreen'); },
+                    bannerDidPresentScreen: function() { cc.log('bannerDidPresentScreen'); },
+                    bannerWillDismissScreen: function() { cc.log('bannerWillDismissScreen'); },
+                    bannerDidDismissScreen: function() { cc.log('bannerDidDismissScreen'); },
+                    bannerRewardActionCompletedWithRewards: function(rewards) { cc.log('bannerRewardActionCompletedWithRewards'); },
+                    interstitialDidFinishLoading: function() { cc.log('interstitialDidFinishLoading'); },
+                    interstitialDidFailToLoadWithError: function(code, description) { cc.log('interstitialDidFailToLoadWithError'); },
+                    interstitialWillPresent: function() { cc.log('interstitialWillPresent'); },
+                    interstitialDidPresent: function() { cc.log('interstitialDidPresent'); },
+                    interstitialDidFailToPresentWithError: function(code, description) { cc.log('interstitialDidFailToPresentWithError'); },
+                    interstitialWillDismiss: function() { cc.log('interstitialWillDismiss'); },
+                    interstitialDidDismiss: function() { cc.log('interstitialDidDismiss'); },
+                    interstitialDidInteractWithParams: function(params) { cc.log('interstitialDidInteractWithParams'); },
+                    interstitialRewardActionCompletedWithRewards: function(rewards) { cc.log('interstitialRewardActionCompletedWithRewards'); },
+                    userWillLeaveApplicationFromInterstitial: function() { cc.log('userWillLeaveApplicationFromInterstitial'); }
                 })
-                plugin.init()
+                plugin.init();
 
-                plugin.setDebugEnabled(true);
-                plugin.setUserVkId("user id");
-                plugin.setUserFacebookId("facebook id");
-                plugin.setUserEmail("test@sdkbox.com");
-                plugin.setUserBirthday("11/11/1999"); //DD/MM/YYYY
-                plugin.setUserAge(11);
-                plugin.setUserGender(1);
-                plugin.setUserOccupation(2);
-                plugin.setUserRelationship(1);
-                plugin.setUserSmokingAttitude(0);
-                plugin.setUserAlcoholAttitude(1);
-                plugin.setUserInterests("game");
-                plugin.cacheAd(15);
+                //base setting
+                cc.log("inmobi plugin version:" + plugin.getVersion());
+                plugin.setLogLevel(sdkbox.PluginInMobi.SBIMSDKLogLevel.kIMSDKLogLevelDebug);
+                plugin.addIdForType("test", sdkbox.PluginInMobi.SBIMSDKIdType.kIMSDKIdTypeLogin);
+                plugin.removeIdType(sdkbox.PluginInMobi.SBIMSDKIdType.kIMSDKIdTypeLogin);
+                plugin.setAge(18);
+                plugin.setAreaCode("area code");
+                plugin.setAgeGroup(sdkbox.PluginInMobi.SBIMSDKAgeGroup.kIMSDKAgeGroupBetween18And20);
+                plugin.setYearOfBirth(1989);
+                plugin.setEducation(sdkbox.PluginInMobi.SBIMSDKEducation.kIMSDKEducationHighSchoolOrLess);
+                plugin.setEthnicity(sdkbox.PluginInMobi.SBIMSDKEthnicity.kIMSDKEthnicityHispanic);
+                plugin.setGender(sdkbox.PluginInMobi.SBIMSDKGender.kIMSDKGenderMale);
+                plugin.setHouseholdIncome(sdkbox.PluginInMobi.SBIMSDKHouseholdIncome.kIMSDKHouseholdIncomeBelow5kUSD);
+                plugin.setIncome(4500);
+                plugin.setInterests("game");
+                plugin.setLanguage("zh-cn");
+                plugin.setLocation("cd", "sc", "usa");
+                plugin.setLocation(102, 348);
+                plugin.setNationality("nationality");
+                plugin.setPostalCode("618000");
+
+                //interstitail setting
+                // plugin.disableHardwareAccelerationForInterstitial();
+                var extras = {k1: "v1"}
+                plugin.setInterstitialExtras(extras);
+                plugin.setInterstitialKeywords("spoort");
+
+                // Manually Loading Ads
+                // plugin.loadInterstitial();
+
+                //banner setting
+                // plugin.disableHardwareAccelerationForBanner();
+                plugin.setBannerAnimationType(sdkbox.PluginInMobi.SBIMBannerAnimationType.kIMBannerAnimationTypeRotateHorizontalAxis);
+                plugin.setBannerExtras(extras);
+                plugin.setBannerKeywords("music");
+
+                plugin.shouldAutoRefresh(true);
+                plugin.setRefreshInterval(60);
             } else {
                 console.log("no plugin init")
             }
@@ -80,9 +110,14 @@ var HelloWorldLayer = cc.Layer.extend({
                 return
             }
 
-            if ("undefined" != typeof(sdkbox.PluginAppodeal)) {
-                var plugin = sdkbox.PluginAppodeal
-                plugin.showAd(1);
+            if ("undefined" != typeof(sdkbox.PluginInMobi)) {
+                var plugin = sdkbox.PluginInMobi
+                if (plugin.isInterstitialReady()) {
+                    cc.log('inmobi interstitial ad is ready');
+                    plugin.showInterstitial();
+                } else {
+                    cc.log('inmobi interstitial ad is not ready');
+                }
             } else {
                 console.log("no plugin invoked")
             }
