@@ -40,30 +40,30 @@ var HelloWorldLayer = cc.Layer.extend({
             if ("undefined" != typeof(sdkbox.PluginInMobi)) {
                 var plugin = sdkbox.PluginInMobi
                 plugin.setListener({
-                    bannerDidFinishLoading: function() { cc.log('bannerDidFinishLoading'); },
-                    bannerDidFailToLoadWithError: function(code, description) { cc.log('bannerDidFailToLoadWithError'); },
-                    bannerDidInteractWithParams: function(params) { cc.log('bannerDidInteractWithParams'); },
-                    userWillLeaveApplicationFromBanner: function() { cc.log('userWillLeaveApplicationFromBanner'); },
-                    bannerWillPresentScreen: function() { cc.log('bannerWillPresentScreen'); },
-                    bannerDidPresentScreen: function() { cc.log('bannerDidPresentScreen'); },
-                    bannerWillDismissScreen: function() { cc.log('bannerWillDismissScreen'); },
-                    bannerDidDismissScreen: function() { cc.log('bannerDidDismissScreen'); },
-                    bannerRewardActionCompletedWithRewards: function(rewards) { cc.log('bannerRewardActionCompletedWithRewards'); },
-                    interstitialDidFinishLoading: function() { cc.log('interstitialDidFinishLoading'); },
-                    interstitialDidFailToLoadWithError: function(code, description) { cc.log('interstitialDidFailToLoadWithError'); },
-                    interstitialWillPresent: function() { cc.log('interstitialWillPresent'); },
-                    interstitialDidPresent: function() { cc.log('interstitialDidPresent'); },
-                    interstitialDidFailToPresentWithError: function(code, description) { cc.log('interstitialDidFailToPresentWithError'); },
-                    interstitialWillDismiss: function() { cc.log('interstitialWillDismiss'); },
-                    interstitialDidDismiss: function() { cc.log('interstitialDidDismiss'); },
-                    interstitialDidInteractWithParams: function(params) { cc.log('interstitialDidInteractWithParams'); },
-                    interstitialRewardActionCompletedWithRewards: function(rewards) { cc.log('interstitialRewardActionCompletedWithRewards'); },
-                    userWillLeaveApplicationFromInterstitial: function() { cc.log('userWillLeaveApplicationFromInterstitial'); }
+                    bannerDidFinishLoading: function() { console.log('bannerDidFinishLoading'); },
+                    bannerDidFailToLoadWithError: function(code, description) { console.log('bannerDidFailToLoadWithError code:' + code + ' desc:' + description); },
+                    bannerDidInteractWithParams: function(params) { console.log('bannerDidInteractWithParams'); },
+                    userWillLeaveApplicationFromBanner: function() { console.log('userWillLeaveApplicationFromBanner'); },
+                    bannerWillPresentScreen: function() { console.log('bannerWillPresentScreen'); },
+                    bannerDidPresentScreen: function() { console.log('bannerDidPresentScreen'); },
+                    bannerWillDismissScreen: function() { console.log('bannerWillDismissScreen'); },
+                    bannerDidDismissScreen: function() { console.log('bannerDidDismissScreen'); },
+                    bannerRewardActionCompletedWithRewards: function(rewards) { console.log('bannerRewardActionCompletedWithRewards'); },
+                    interstitialDidFinishLoading: function() { console.log('interstitialDidFinishLoading'); },
+                    interstitialDidFailToLoadWithError: function(code, description) { console.log('interstitialDidFailToLoadWithError code:' + code + ' desc:' + description); },
+                    interstitialWillPresent: function() { console.log('interstitialWillPresent'); },
+                    interstitialDidPresent: function() { console.log('interstitialDidPresent'); },
+                    interstitialDidFailToPresentWithError: function(code, description) { console.log('interstitialDidFailToPresentWithError code:' + code + ' desc:' + description); },
+                    interstitialWillDismiss: function() { console.log('interstitialWillDismiss'); },
+                    interstitialDidDismiss: function() { console.log('interstitialDidDismiss'); },
+                    interstitialDidInteractWithParams: function(params) { console.log('interstitialDidInteractWithParams'); },
+                    interstitialRewardActionCompletedWithRewards: function(rewards) { console.log('interstitialRewardActionCompletedWithRewards'); },
+                    userWillLeaveApplicationFromInterstitial: function() { console.log('userWillLeaveApplicationFromInterstitial'); }
                 })
                 plugin.init();
 
                 //base setting
-                cc.log("inmobi plugin version:" + plugin.getVersion());
+                console.log("inmobi plugin version:" + plugin.getVersion());
                 plugin.setLogLevel(sdkbox.PluginInMobi.SBIMSDKLogLevel.kIMSDKLogLevelDebug);
                 plugin.addIdForType("test", sdkbox.PluginInMobi.SBIMSDKIdType.kIMSDKIdTypeLogin);
                 plugin.removeIdType(sdkbox.PluginInMobi.SBIMSDKIdType.kIMSDKIdTypeLogin);
@@ -113,10 +113,10 @@ var HelloWorldLayer = cc.Layer.extend({
             if ("undefined" != typeof(sdkbox.PluginInMobi)) {
                 var plugin = sdkbox.PluginInMobi
                 if (plugin.isInterstitialReady()) {
-                    cc.log('inmobi interstitial ad is ready');
+                    console.log('inmobi interstitial ad is ready');
                     plugin.showInterstitial();
                 } else {
-                    cc.log('inmobi interstitial ad is not ready');
+                    console.log('inmobi interstitial ad is not ready');
                 }
             } else {
                 console.log("no plugin invoked")
