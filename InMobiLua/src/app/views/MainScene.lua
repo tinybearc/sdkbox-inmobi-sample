@@ -31,27 +31,51 @@ function MainScene:initSDK()
 
     print "Entry initSDK"
 
-    if sdkbox.PluginAppodeal then
-        local plugin = sdkbox.PluginAppodeal
+    if sdkbox.PluginInMobi then
+        local plugin = sdkbox.PluginInMobi
         plugin:setListener(function(args)
             local event = args.event
-            dump(args, "appodeal listener info:")
+            dump(args, "inmobi listener info:")
         end)
         plugin:init()
 
-        plugin:setDebugEnabled(true);
-        plugin:setUserVkId("user id");
-        plugin:setUserFacebookId("facebook id");
-        plugin:setUserEmail("test@sdkbox.com");
-        plugin:setUserBirthday("11/11/1999"); --//DD/MM/YYYY
-        plugin:setUserAge(11);
-        plugin:setUserGender(1);
-        plugin:setUserOccupation(2);
-        plugin:setUserRelationship(1);
-        plugin:setUserSmokingAttitude(2);
-        plugin:setUserAlcoholAttitude(1);
-        plugin:setUserInterests("game");
-        plugin:cacheAd(15);
+        print("inmobi plugin version:" .. plugin:getVersion());
+        plugin:setLogLevel(sdkbox.PluginInMobi.SBIMSDKLogLevel.kIMSDKLogLevelDebug);
+        plugin:addIdForType("test", sdkbox.PluginInMobi.SBIMSDKIdType.kIMSDKIdTypeLogin);
+        plugin:removeIdType(sdkbox.PluginInMobi.SBIMSDKIdType.kIMSDKIdTypeLogin);
+        plugin:setAge(18);
+        plugin:setAreaCode("area code");
+        plugin:setAgeGroup(sdkbox.PluginInMobi.SBIMSDKAgeGroup.kIMSDKAgeGroupBetween18And20);
+        plugin:setYearOfBirth(1989);
+        plugin:setEducation(sdkbox.PluginInMobi.SBIMSDKEducation.kIMSDKEducationHighSchoolOrLess);
+        plugin:setEthnicity(sdkbox.PluginInMobi.SBIMSDKEthnicity.kIMSDKEthnicityHispanic);
+        plugin:setGender(sdkbox.PluginInMobi.SBIMSDKGender.kIMSDKGenderMale);
+        plugin:setHouseholdIncome(sdkbox.PluginInMobi.SBIMSDKHouseholdIncome.kIMSDKHouseholdIncomeBelow5kUSD);
+        plugin:setIncome(4500);
+        plugin:setInterests("game");
+        plugin:setLanguage("zh-cn");
+        plugin:setLocation("cd", "sc", "usa");
+        plugin:setLocation(102, 348);
+        plugin:setNationality("nationality");
+        plugin:setPostalCode("618000");
+
+        -- interstitail setting
+        -- plugin:disableHardwareAccelerationForInterstitial();
+        local extras = {k1 = "v1"}
+        plugin:setInterstitialExtras(extras);
+        plugin:setInterstitialKeywords("spoort");
+
+        -- Manually Loading Ads
+        -- plugin:loadInterstitial();
+
+        --banner setting
+        -- plugin:disableHardwareAccelerationForBanner();
+        plugin:setBannerAnimationType(sdkbox.PluginInMobi.SBIMBannerAnimationType.kIMBannerAnimationTypeRotateHorizontalAxis);
+        plugin:setBannerExtras(extras);
+        plugin:setBannerKeywords("music");
+
+        plugin:shouldAutoRefresh(true);
+        plugin:setRefreshInterval(60);
     else
         print "not found plugin"
     end
@@ -65,9 +89,14 @@ function MainScene:invokeFun()
 
     print "Entry invokeFun"
 
-    if sdkbox.PluginAppodeal then
-        local plugin = sdkbox.PluginAppodeal
-        plugin:showAd(1)
+    if sdkbox.PluginInMobi then
+        local plugin = sdkbox.PluginInMobi
+        if plugin:isInterstitialReady() then
+            print('inmobi interstitial ad is ready');
+            plugin:showInterstitial();
+        else
+            print('inmobi interstitial ad is not ready');
+        end
     else
         print "not found plugin"
     end
