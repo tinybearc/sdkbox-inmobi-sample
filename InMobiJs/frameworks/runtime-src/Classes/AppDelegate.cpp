@@ -11,6 +11,11 @@
 #else
 #include "js_module_register.h"
 #endif
+#ifdef SDKBOX_ENABLED
+#include "Sdkbox/Sdkbox.h"
+#include "PluginInMobiJS.hpp"
+#include "PluginInMobiJSHelper.h"
+#endif
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -69,7 +74,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     }
 #else
    js_module_register();
-   ScriptingCore* sc = ScriptingCore::getInstance();
+    ScriptingCore* sc = ScriptingCore::getInstance();
+#ifdef SDKBOX_ENABLED
+    sc->addRegisterCallback(register_all_PluginInMobiJS);
+    sc->addRegisterCallback(register_all_PluginInMobiJS_helper);
+#endif
    sc->start();
    sc->runScript("script/jsb_boot.js");
    ScriptEngineProtocol *engine = ScriptingCore::getInstance();
@@ -83,6 +92,9 @@ bool AppDelegate::applicationDidFinishLaunching()
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground()
 {
+#ifdef SDKBOX_ENABLED
+    sdkbox::sessionEnd();
+#endif
     auto director = Director::getInstance();
     director->stopAnimation();
     director->getEventDispatcher()->dispatchCustomEvent("game_on_hide");
@@ -93,6 +105,9 @@ void AppDelegate::applicationDidEnterBackground()
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
+#ifdef SDKBOX_ENABLED
+    sdkbox::sessionStart();
+#endif
     auto director = Director::getInstance();
     director->startAnimation();
     director->getEventDispatcher()->dispatchCustomEvent("game_on_show");

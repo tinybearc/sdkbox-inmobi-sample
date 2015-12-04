@@ -13,13 +13,19 @@ FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/ide-support/*.c)
 
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
+LOCAL_CPPFLAGS := -DSDKBOX_ENABLED
+LOCAL_LDLIBS := -landroid -llog
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
+LOCAL_WHOLE_STATIC_LIBRARIES := PluginInMobi sdkbox
 
 LOCAL_STATIC_LIBRARIES := cocos2d_lua_static
 LOCAL_STATIC_LIBRARIES += cocos2d_simulator_static
 
 include $(BUILD_SHARED_LIBRARY)
+$(call import-add-path,$(LOCAL_PATH))
 
 $(call import-module,scripting/lua-bindings/proj.android/prebuilt-mk)
 $(call import-module,tools/simulator/libsimulator/proj.android/prebuilt-mk)
+$(call import-module, ./sdkbox)
+$(call import-module, ./plugininmobi)
 

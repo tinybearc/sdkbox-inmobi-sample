@@ -1,0 +1,18 @@
+{
+    "android": {
+        "InMobi": {
+            "interstitial_placement_id": "1449919424310", 
+            "account_id": "922cc696d9fa475097651b5cad78567d", 
+            "banner_h": 50, 
+            "banner_placement_id": "1447081423897"
+        }
+    }, 
+    "ios": {
+        "InMobi": {
+            "interstitial_placement_id": "1446442489192", 
+            "account_id": "922cc696d9fa475097651b5cad78567d", 
+            "banner_h": 50, 
+            "banner_placement_id": "1449005666241"
+        }
+    }
+}
