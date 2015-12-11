@@ -34,6 +34,11 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import com.sdkbox.plugin.SDKBox;
+
+import android.content.Intent;
+import android.util.Log;
+
 
 // The name of .so is specified in AndroidMenifest.xml. NativityActivity will load it automatically for you.
 // You can use "System.loadLibrary()" to load other .so files.
@@ -45,6 +50,7 @@ public class AppActivity extends Cocos2dxActivity{
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        SDKBox.init(this);
         
         if(nativeIsLandScape()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -75,6 +81,38 @@ public class AppActivity extends Cocos2dxActivity{
     
     public static String getLocalIpAddress() {
         return hostIPAdress;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(!SDKBox.onActivityResult(requestCode, resultCode, data)){
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("AppActivity", "onStart");
+        SDKBox.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SDKBox.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SDKBox.onPause();
+    }
+    
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SDKBox.onStop();
     }
     
     private static native boolean nativeIsLandScape();

@@ -51,6 +51,10 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.sdkbox.plugin.SDKBox;
+
+import android.content.Intent;
+import android.util.Log;
 
 public class AppActivity extends Cocos2dxActivity{
 
@@ -58,6 +62,7 @@ public class AppActivity extends Cocos2dxActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SDKBox.init(this);
         
         if(nativeIsLandScape()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -122,6 +127,38 @@ public class AppActivity extends Cocos2dxActivity{
     
     public static String getLocalIpAddress() {
         return hostIPAdress;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(!SDKBox.onActivityResult(requestCode, resultCode, data)){
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("AppActivity", "onStart");
+        SDKBox.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SDKBox.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SDKBox.onPause();
+    }
+    
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SDKBox.onStop();
     }
     
     private static native boolean nativeIsLandScape();
