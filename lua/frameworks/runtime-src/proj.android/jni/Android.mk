@@ -25,7 +25,7 @@ include $(BUILD_SHARED_LIBRARY)
 $(call import-add-path,$(LOCAL_PATH))
 
 $(call import-module,scripting/lua-bindings/proj.android/prebuilt-mk)
-$(call import-module,tools/simulator/libsimulator/proj.android/prebuilt-mk)
+#$(call import-module,tools/simulator/libsimulator/proj.android/prebuilt-mk)
 $(call import-module, ./sdkbox)
 $(call import-module, ./plugininmobi)
 
