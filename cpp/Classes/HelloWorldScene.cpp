@@ -15,82 +15,82 @@ public:
     void bannerDidFailToLoadWithError(sdkbox::PluginInMobi::SBIMStatusCode code, const std::string& description) {
         CCLOG("bannerDidFailToLoadWithError status:%d, desc:%s", code, description.c_str());
     };
-    
-    void bannerDidInteractWithParams(std::map<std::string, std::string> params) {
+
+    void bannerDidInteractWithParams(const std::map<std::string, std::string>& params) {
         CCLOG("bannerDidInteractWithParams");
     };
-    
+
     void userWillLeaveApplicationFromBanner() {
         CCLOG("userWillLeaveApplicationFromBanner");
     };
-    
+
     void bannerWillPresentScreen() {
         CCLOG("bannerWillPresentScreen");
     };
-    
+
     void bannerDidPresentScreen() {
         CCLOG("bannerDidPresentScreen");
     };
-    
+
     void bannerWillDismissScreen() {
         CCLOG("bannerWillDismissScreen");
     };
-    
+
     void bannerDidDismissScreen() {
         CCLOG("bannerDidDismissScreen");
     };
-    
-    void bannerRewardActionCompletedWithRewards(std::map<std::string, std::string> rewards) {
+
+    void bannerRewardActionCompletedWithRewards(const std::map<std::string, std::string>& rewards) {
         CCLOG("bannerRewardActionCompletedWithRewards");
     };
-    
+
     void interstitialDidFinishLoading() {
         CCLOG("interstitialDidFinishLoading");
     };
-    
+
     void interstitialDidFailToLoadWithError(sdkbox::PluginInMobi::SBIMStatusCode code, const std::string& description) {
         CCLOG("interstitialDidFailToLoadWithError status:%d, desc:%s", code, description.c_str());
     };
-    
+
     void interstitialWillPresent() {
         CCLOG("interstitialWillPresent");
     };
-    
+
     void interstitialDidPresent() {
         CCLOG("interstitialDidPresent");
     };
-    
+
     void interstitialDidFailToPresentWithError(sdkbox::PluginInMobi::SBIMStatusCode code, const std::string& description) {
         CCLOG("interstitialDidFailToPresentWithError");
     };
-    
+
     void interstitialWillDismiss() {
         CCLOG("interstitialWillDismiss");
     };
-    
+
     void interstitialDidDismiss() {
         CCLOG("interstitialDidDismiss");
     };
-    
-    void interstitialDidInteractWithParams(std::map<std::string, std::string> params) {
+
+    void interstitialDidInteractWithParams(const std::map<std::string, std::string>& params) {
         CCLOG("interstitialDidInteractWithParams");
     };
-    
-    void interstitialRewardActionCompletedWithRewards(std::map<std::string, std::string> rewards) {
+
+    void interstitialRewardActionCompletedWithRewards(const std::map<std::string, std::string>& rewards) {
         CCLOG("interstitialRewardActionCompletedWithRewards");
     };
-    
+
     void userWillLeaveApplicationFromInterstitial() {
         CCLOG("userWillLeaveApplicationFromInterstitial");
     };
-    
+
 };
 
 Scene* HelloWorld::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
-    
+
     // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
 
@@ -110,7 +110,7 @@ bool HelloWorld::init()
     {
         return false;
     }
-    
+
 //    auto rootNode = CSLoader::createNode("MainScene.csb");
 //
 //    addChild(rootNode);
@@ -134,16 +134,16 @@ bool HelloWorld::init()
     list->alignItemsVerticallyWithPadding(5);
     list->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2);
     addChild(list);
-    
+
 //    auto btn1 = rootNode->getChildByName<ui::Button*>("btn1");
 //    btn1->addClickEventListener(CC_CALLBACK_1(HelloWorld::onButton1Click, this));
-//    
+//
 //    auto btn2 = rootNode->getChildByName<ui::Button*>("btn2");
 //    btn2->addClickEventListener(CC_CALLBACK_1(HelloWorld::onButton2Click, this));
-    
+
     sdkbox::PluginInMobi::setListener(new IMListener());
     sdkbox::PluginInMobi::init();
-    
+
     //base setting
     auto ver = sdkbox::PluginInMobi::getVersion();
     CCLOG("inmobi plugin version:%s", ver.c_str());
@@ -165,26 +165,26 @@ bool HelloWorld::init()
     sdkbox::PluginInMobi::setLocation(102, 348);
     sdkbox::PluginInMobi::setNationality("nationality");
     sdkbox::PluginInMobi::setPostalCode("618000");
-    
+
     //interstitail setting
     // sdkbox::PluginInMobi::disableHardwareAccelerationForInterstitial();
     std::map<std::string, std::string> map;
     map.insert(std::make_pair("k1", "v1"));
     sdkbox::PluginInMobi::setInterstitialExtras(map);
     sdkbox::PluginInMobi::setInterstitialKeywords("spoort");
-    
+
     // Manually Loading Ads
     // sdkbox::PluginInMobi::loadInterstitial();
-    
+
     //banner setting
     // sdkbox::PluginInMobi::disableHardwareAccelerationForBanner();
     sdkbox::PluginInMobi::setBannerAnimationType(sdkbox::PluginInMobi::SBIMBannerAnimationType::kIMBannerAnimationTypeRotateHorizontalAxis);
     sdkbox::PluginInMobi::setBannerExtras(map);
     sdkbox::PluginInMobi::setBannerKeywords("music");
-    
+
     sdkbox::PluginInMobi::shouldAutoRefresh(true);
     sdkbox::PluginInMobi::setRefreshInterval(60);
-    
+
     // Manually Loading Ads
     // sdkbox::PluginInMobi::loadBanner();
 
