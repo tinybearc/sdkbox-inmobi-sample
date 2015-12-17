@@ -49,7 +49,7 @@ public:
         cb->schedule();
     }
 
-    void bannerDidInteractWithParams(std::map<std::string, std::string> params) {
+    void bannerDidInteractWithParams(const std::map<std::string, std::string>& params) {
         JSContext* cx = s_cx;
         IMCallbackJS* cb = new IMCallbackJS();
         cb->_name = "bannerDidInteractWithParams";
@@ -88,7 +88,7 @@ public:
         cb->schedule();
     }
 
-    void bannerRewardActionCompletedWithRewards(std::map<std::string, std::string> rewards) {
+    void bannerRewardActionCompletedWithRewards(const std::map<std::string, std::string>& rewards) {
         JSContext* cx = s_cx;
         IMCallbackJS* cb = new IMCallbackJS();
         cb->_name = "bannerRewardActionCompletedWithRewards";
@@ -147,7 +147,7 @@ public:
         cb->schedule();
     }
 
-    void interstitialDidInteractWithParams(std::map<std::string, std::string> params) {
+    void interstitialDidInteractWithParams(const std::map<std::string, std::string>& params) {
         JSContext* cx = s_cx;
         IMCallbackJS* cb = new IMCallbackJS();
         cb->_name = "interstitialDidInteractWithParams";
@@ -156,7 +156,7 @@ public:
         cb->schedule();
     }
 
-    void interstitialRewardActionCompletedWithRewards(std::map<std::string, std::string> rewards) {
+    void interstitialRewardActionCompletedWithRewards(const std::map<std::string, std::string>& rewards) {
         JSContext* cx = s_cx;
         IMCallbackJS* cb = new IMCallbackJS();
         cb->_name = "interstitialRewardActionCompletedWithRewards";
