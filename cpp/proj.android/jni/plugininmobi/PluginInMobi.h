@@ -1,6 +1,6 @@
 /****************************************************************************
 
- Copyright (c) 2014-2015 Chukong Technologies
+ Copyright (c) 2014-2015 SDKBOX Inc
 
  ****************************************************************************/
 
@@ -8,15 +8,15 @@
 #define _PLUGIN_INMOBI_H_
 
 #include <string>
-#include <vector>
 #include <map>
 
 namespace sdkbox {
+
     class InMobiListener;
     class PluginInMobi {
     public:
 
-        typedef enum {
+        enum SBIMStatusCode {
             kIMStatusCodeNetworkUnReachable,
             kIMStatusCodeNoFill,
             kIMStatusCodeRequestInvalid,
@@ -26,48 +26,39 @@ namespace sdkbox {
             kIMStatusCodeServerError,
             kIMStatusCodeAdActive,
             kIMStatusCodeEarlyRefreshRequest
-        } SBIMStatusCode;
+        };
 
-        typedef enum {
+        enum SBIMSDKIdType {
             kIMSDKIdTypeSession,
             kIMSDKIdTypeLogin
-        } SBIMSDKIdType;
+        };
 
-        typedef enum {
+        enum SBIMSDKLogLevel {
             kIMSDKLogLevelNone,
             kIMSDKLogLevelError,
             kIMSDKLogLevelDebug
-        } SBIMSDKLogLevel;
+        };
 
-        /**
-         * User Gender
-         */
-        typedef enum {
+        enum SBIMSDKGender {
             kIMSDKGenderMale = 1,
             kIMSDKGenderFemale
-        } SBIMSDKGender;
+        };
 
-        /**
-         * User Education
-         */
-        typedef enum {
+        enum SBIMSDKEducation {
             kIMSDKEducationHighSchoolOrLess = 1,
             kIMSDKEducationCollegeOrGraduate,
             kIMSDKEducationPostGraduateOrAbove
-        } SBIMSDKEducation;
+        };
 
-        /**
-         * User Ethnicity
-         */
-        typedef enum {
+        enum SBIMSDKEthnicity {
             kIMSDKEthnicityHispanic = 1,
             kIMSDKEthnicityCaucasian,
             kIMSDKEthnicityAsian,
             kIMSDKEthnicityAfricanAmerican,
             kIMSDKEthnicityOther
-        } SBIMSDKEthnicity;
+        };
 
-        typedef enum {
+        enum SBIMSDKHouseholdIncome {
             kIMSDKHouseholdIncomeBelow5kUSD = 1,
             kIMSDKHouseholdIncomeBetweek5kAnd10kUSD,
             kIMSDKHouseholdIncomeBetween10kAnd15kUSD,
@@ -78,29 +69,29 @@ namespace sdkbox {
             kIMSDKHouseholdIncomeBetween75kAnd100kUSD,
             kIMSDKHouseholdIncomeBetween100kAnd150kUSD,
             kIMSDKHouseholdIncomeAbove150kUSD
-        } SBIMSDKHouseholdIncome;
+        };
 
-        typedef enum {
+        enum SBIMSDKAgeGroup {
             kIMSDKAgeGroupBelow18 = 1,
             kIMSDKAgeGroupBetween18And20,
             kIMSDKAgeGroupBetween21And24,
             kIMSDKAgeGroupBetween25And34,
             kIMSDKAgeGroupBetween35And54,
             kIMSDKAgeGroupAbove55
-        } SBIMSDKAgeGroup;
+        };
 
-        typedef enum {
+        enum SBIMInterstitialAnimationType {
             kIMInterstitialAnimationTypeCoverVertical,
             kIMInterstitialAnimationTypeFlipHorizontal,
             kIMInterstitialAnimationTypeNone
-        } SBIMInterstitialAnimationType;
-        
-        typedef enum {
+        };
+
+        enum SBIMBannerAnimationType {
             kIMBannerAnimationTypeOff,
             kIMBannerAnimationTypeAlpha,
             kIMBannerAnimationTypeRotateHorizontalAxis,
             kIMBannerAnimationTypeRotateVerticalAxis
-        } SBIMBannerAnimationType;
+        };
 
         /**
          *  initialize the plugin instance.
@@ -108,7 +99,7 @@ namespace sdkbox {
         static bool init();
 
         /**
-         * Set listener to listen for adcolony events
+         * Set listener to listen for inmobi events
          */
         static void setListener(InMobiListener* listener);
 
@@ -224,32 +215,73 @@ namespace sdkbox {
         static void setPostalCode(const std::string& postalcode);
 
 
-        //Banner
+        /**
+         * Control if the banner should auto-refresh ad content.
+         */
         static void shouldAutoRefresh(bool refresh);
+        /**
+         * Specify the refresh interval for the banner ad.
+         */
         static void setRefreshInterval(int interval);
+        /**
+         * Submit a request to load banner ad content.
+         */
         static void loadBanner();
 
+        /**
+         * Turn off hardware acceleration on the underlying views.
+         * vaild on android
+         */
         static void disableHardwareAccelerationForBanner();
+        /**
+         * Set the animation preference on the banner views during ad refresh.
+         */
         static void setBannerAnimationType(SBIMBannerAnimationType animationType);
+        /**
+         * Set any additional custom parameters that will be sent in the ad request.
+         */
         static void setBannerExtras(const std::map<std::string, std::string>& extras);
+        /**
+         * Set comma delimited keywords for targeting purpose
+         */
         static void setBannerKeywords(const std::string& keywords);
 
-        //Intersitial
+
+        /**
+         * Submit a request to load interstitial ad content.
+         */
         static void loadInterstitial();
         /**
-         * To query if the interstitial is ready to be shown
+         * Returns true if the interstitial was loaded successfully and in ready to be shown.
          */
         static bool isInterstitialReady();
         /**
          * Displays the interstitial on the screen
-         * @param view controller, this view controller will be used to present interestitial.
          */
         static void showInterstitial();
+        /**
+         * Displays the interstitial on the screen
+         * valid on ios
+         */
         static void showInterstitial(SBIMInterstitialAnimationType type);
 
+        /**
+         * Displays the interstitial on the screen
+         * valid on android
+         */
         static void showInterstitial(int enterAnimationResourcedId, int exitAnimationResourceId);
+        /**
+         * Disable hardware acceleration on the underlying views.
+         * valid on android
+         */
         static void disableHardwareAccelerationForInterstitial();
+        /**
+         * Set any additional custom parameters that will be sent in the ad request.
+         */
         static void setInterstitialExtras(const std::map<std::string, std::string>& extras);
+        /**
+         * Set comma delimited keywords for targeting purpose
+         */
         static void setInterstitialKeywords(const std::string& keywords);
 
         };
@@ -268,7 +300,7 @@ namespace sdkbox {
         /**
          * Notifies the delegate that the banner was interacted with.
          */
-        virtual void bannerDidInteractWithParams(std::map<std::string, std::string> params) {};
+        virtual void bannerDidInteractWithParams(const std::map<std::string, std::string>& params) {};
         /**
          * Notifies the delegate that the user would be taken out of the application context.
          */
@@ -292,7 +324,7 @@ namespace sdkbox {
         /**
          * Notifies the delegate that the user has completed the action to be incentivised with.
          */
-        virtual void bannerRewardActionCompletedWithRewards(std::map<std::string, std::string> rewards) {};
+        virtual void bannerRewardActionCompletedWithRewards(const std::map<std::string, std::string>& rewards) = 0;
 
 
         /**
@@ -326,11 +358,11 @@ namespace sdkbox {
         /**
          * Notifies the delegate that the interstitial has been interacted with.
          */
-        virtual void interstitialDidInteractWithParams(std::map<std::string, std::string> params) {};
+        virtual void interstitialDidInteractWithParams(const std::map<std::string, std::string>& params) {};
         /**
          * Notifies the delegate that the user has performed the action to be incentivised with.
          */
-        virtual void interstitialRewardActionCompletedWithRewards(std::map<std::string, std::string> rewards) {};
+        virtual void interstitialRewardActionCompletedWithRewards(const std::map<std::string, std::string>& rewards) = 0;
         /**
          * Notifies the delegate that the user will leave application context.
          */
