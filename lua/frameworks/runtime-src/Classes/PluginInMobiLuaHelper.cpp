@@ -54,7 +54,7 @@ public:
         stack->executeFunctionByHandler(mLuaHandler, 1);
     };
 
-    void bannerDidInteractWithParams(std::map<std::string, std::string> params) {
+    void bannerDidInteractWithParams(const std::map<std::string, std::string>& params) {
         LuaStack* stack = LUAENGINE->getLuaStack();
 
         LuaValueDict paramsDict;
@@ -122,7 +122,7 @@ public:
         stack->executeFunctionByHandler(mLuaHandler, 1);
     };
 
-    void bannerRewardActionCompletedWithRewards(std::map<std::string, std::string> rewards) {
+    void bannerRewardActionCompletedWithRewards(const std::map<std::string, std::string>& rewards) {
         LuaStack* stack = LUAENGINE->getLuaStack();
 
         LuaValueDict rewardsDict;
@@ -213,7 +213,7 @@ public:
         stack->executeFunctionByHandler(mLuaHandler, 1);
     };
 
-    void interstitialDidInteractWithParams(std::map<std::string, std::string> params) {
+    void interstitialDidInteractWithParams(const std::map<std::string, std::string>& params) {
         LuaStack* stack = LUAENGINE->getLuaStack();
         
         LuaValueDict paramsDict;
@@ -230,7 +230,7 @@ public:
         stack->executeFunctionByHandler(mLuaHandler, 1);
     };
 
-    void interstitialRewardActionCompletedWithRewards(std::map<std::string, std::string> rewards) {
+    void interstitialRewardActionCompletedWithRewards(const std::map<std::string, std::string>& rewards) {
         LuaStack* stack = LUAENGINE->getLuaStack();
         
         LuaValueDict rewardsDict;

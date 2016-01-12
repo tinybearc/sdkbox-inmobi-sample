@@ -647,6 +647,7 @@ bool luaval_to_ccluavaluevector(lua_State* L, int lo, LuaValueArray* ret, const 
     return ok;
 }
 
+#if COCOS2D_VERSION <= 0x00030600
 bool luaval_to_std_map_string_string(lua_State* L, int lo, std::map<std::string, std::string>* ret, const char* funcName) {
     if (nullptr == L || nullptr == ret || lua_gettop(L) < lo)
         return false;
@@ -677,3 +678,4 @@ bool luaval_to_std_map_string_string(lua_State* L, int lo, std::map<std::string,
     
     return ok;
 }
+#endif
