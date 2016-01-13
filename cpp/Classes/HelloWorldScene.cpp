@@ -128,18 +128,13 @@ bool HelloWorld::init()
     this->addChild(label, 1);
 
     Menu* list = Menu::create(
-                              MenuItemFont::create("Show Interstitial", CC_CALLBACK_1(HelloWorld::onButton1Click, this)),
                               MenuItemFont::create("Load Interstitial", CC_CALLBACK_1(HelloWorld::onButton2Click, this)),
+                              MenuItemFont::create("Show Interstitial", CC_CALLBACK_1(HelloWorld::onButton1Click, this)),
+                              MenuItemFont::create("Show Banner", CC_CALLBACK_1(HelloWorld::onButton3Click, this)),
                               NULL);
     list->alignItemsVerticallyWithPadding(5);
     list->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2);
     addChild(list);
-
-//    auto btn1 = rootNode->getChildByName<ui::Button*>("btn1");
-//    btn1->addClickEventListener(CC_CALLBACK_1(HelloWorld::onButton1Click, this));
-//
-//    auto btn2 = rootNode->getChildByName<ui::Button*>("btn2");
-//    btn2->addClickEventListener(CC_CALLBACK_1(HelloWorld::onButton2Click, this));
 
     sdkbox::PluginInMobi::setListener(new IMListener());
     sdkbox::PluginInMobi::init();
@@ -203,5 +198,10 @@ void HelloWorld::onButton1Click(Ref *sender) {
 void HelloWorld::onButton2Click(Ref *sender) {
     CCLOG("load institial manually");
     sdkbox::PluginInMobi::loadInterstitial();
+}
+
+void HelloWorld::onButton3Click(Ref *sender) {
+    CCLOG("Show banner");
+    sdkbox::PluginInMobi::loadBanner();
 }
 
