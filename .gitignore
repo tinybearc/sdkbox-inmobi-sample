@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/osx,windows,android,xcode,visualstudio,python
 
+local.properties
+**/proj.android/libs/armeabi
+**/proj.android/assets
+*.zip
 
 ### OSX ###
 .DS_Store
