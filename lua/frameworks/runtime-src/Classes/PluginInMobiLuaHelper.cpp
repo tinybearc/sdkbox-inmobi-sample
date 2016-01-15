@@ -324,7 +324,7 @@ int lua_PluginInMobiLua_PluginInMobi_setBannerExtras(lua_State* tolua_S) {
 #endif
         std::map<std::string, std::string> extras;
         if (!luaval_to_std_map_string_string(tolua_S, 2, &extras, "sdkbox.PluginInMobi:setBannerExtras")) {
-            goto tolua_lerror;
+            return 0;
         }
         sdkbox::PluginInMobi::setBannerExtras(extras);
         
@@ -361,7 +361,7 @@ int lua_PluginInMobiLua_PluginInMobi_setInterstitialExtras(lua_State* tolua_S) {
 #endif
         std::map<std::string, std::string> extras;
         if (!luaval_to_std_map_string_string(tolua_S, 2, &extras, "sdkbox.PluginInMobi:setInterstitialExtras")) {
-            goto tolua_lerror;
+            return 0;
         }
         sdkbox::PluginInMobi::setInterstitialExtras(extras);
 

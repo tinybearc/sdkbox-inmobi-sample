@@ -1,7 +1,7 @@
 
 #include "SDKBoxLuaHelper.h"
 #include "tolua_fix.h"
-#include "Sdkbox/Sdkbox.h"
+#include "sdkbox/Sdkbox.h"
 
 #include <limits>
 
@@ -651,16 +651,16 @@ bool luaval_to_ccluavaluevector(lua_State* L, int lo, LuaValueArray* ret, const 
 bool luaval_to_std_map_string_string(lua_State* L, int lo, std::map<std::string, std::string>* ret, const char* funcName) {
     if (nullptr == L || nullptr == ret || lua_gettop(L) < lo)
         return false;
-    
+
     tolua_Error tolua_err;
     bool ok = true;
     if (!tolua_istable(L, lo, 0, &tolua_err)) {
         ok = false;
     }
-    
+
     if (!ok)
         return ok;
-    
+
     lua_pushnil(L);
     std::string key;
     std::string value;
@@ -672,10 +672,10 @@ bool luaval_to_std_map_string_string(lua_State* L, int lo, std::map<std::string,
         } else {
             //CCASSERT(false, "string type is needed");
         }
-        
+
         lua_pop(L, 1);
     }
-    
+
     return ok;
 }
 #endif
