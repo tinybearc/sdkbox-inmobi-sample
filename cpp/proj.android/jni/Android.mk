@@ -11,9 +11,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp ../../Classes/AppDelegate.cpp ../../Classes
 LOCAL_CPPFLAGS := -DSDKBOX_ENABLED
 LOCAL_LDLIBS := -landroid -llog
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
-LOCAL_WHOLE_STATIC_LIBRARIES := PluginInMobi sdkbox
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
+LOCAL_STATIC_LIBRARIES += PluginInMobi
+LOCAL_STATIC_LIBRARIES += sdkbox
 
 include $(BUILD_SHARED_LIBRARY)
 $(call import-add-path,$(LOCAL_PATH))
