@@ -1,6 +1,6 @@
 /****************************************************************************
 
- Copyright (c) 2014-2015 Chukong Technologies
+ Copyright (c) 2014-2015 SDKBOX Inc
 
  ****************************************************************************/
 
@@ -25,14 +25,53 @@
  */
 #define SDKBOX_DEPRECATED(...) SDKBOX_DEPRECATED_ATTRIBUTE
 
+ #include <string>
+
 namespace sdkbox {
 
     void init( const char* application_token, const char* application_key );
     void init( const char* application_token, const char* application_key, bool debug );
     void setProjectType(const char* project_type);
-    
+
     void sessionStart();
     void sessionEnd();
+
+
+    enum AdActionType {
+
+        LOADED=0,             // content loaded
+        LOAD_FAILED,        // content failed to load
+
+        CLICKED,            // clicked on content
+
+        REWARD_STARTED,
+        REWARD_ENDED,       // reward achieved
+        REWARD_CANCELED,    // reward aborted
+
+        AD_STARTED,         // start showing.
+        AD_CANCELED,        // start showing.
+        AD_ENDED,            // content shown
+
+        ADACTIONTYPE_UNKNOWN
+
+    };
+
+    enum AdType {
+        BANNER=0,
+        VIDEO,
+        INTERSTITIAL,
+        REWARDED,
+
+        ADTYPE_UNKNOWN
+    };
+
+
+    std::string  AdActionTypeToString( AdActionType t );
+    AdActionType intToAdActionType( int v );
+
+    std::string AdTypeToString( AdType t );
+    int         AdTypeToInt( AdType t );
+    AdType      intToAdType( int t );
 }
 
 #endif//_CC_SDKBOX_H_
